@@ -16,4 +16,4 @@
 	* На вход подаются 2 строки, содержащие двоичные числа - вернуть строку, содержащую сумму этих чисел в двоичной системе счисления.
 		`public long sumOfBinary(String b1, String b2);`
 	* На вход методу подаётся два массива long. Вернуть элементы, которые встречаются в обоих массивах
-		~public long[] intersection(long[] arr1, long[] arr2);`
+		`public long[] intersection(long[] arr1, long[] arr2);`
