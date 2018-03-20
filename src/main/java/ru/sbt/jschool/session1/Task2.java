@@ -7,6 +7,5 @@ public class Task2 {
         for(Map.Entry<String, String> env : System.getenv().entrySet()){
             System.out.println(env.getKey() + " = " + env.getValue());
         }
-        System.out.println(System.getenv().containsKey("JSCHOOl1_COUNT"));
     }
 }
