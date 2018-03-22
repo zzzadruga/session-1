@@ -1,18 +1,22 @@
 package ru.sbt.jschool.session1;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Property implements PropertyHelper{
     private String[] args;
-    private String path;
+    private Properties properties;
 
     public Property(String[] args, String path){
         this.args = args;
-        this.path = path;
+        properties = new Properties();
+        try(FileInputStream fileInputStream = new FileInputStream(new File(path))){
+            properties.load(fileInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -24,10 +28,10 @@ public class Property implements PropertyHelper{
         if ((property = getPropertyFromArgs(name)) != null) {
             return property;
         }
-        if ((property = getPropertyFromEnv(name)) != null) {
+        if ((property = System.getenv().get(name)) != null) {
             return property;
         }
-        if ((property = getPropertyFromProperties(name)) != null) {
+        if ((property = properties.getProperty(name)) != null) {
             return property;
         }
         return null;
@@ -61,22 +65,4 @@ public class Property implements PropertyHelper{
         }
         return null;
     }
-
-    private String getPropertyFromEnv(String name){
-        return System.getenv().get(name);
-    }
-
-    private String getPropertyFromProperties(String name){
-        Path pathToPropertyFile = Paths.get(path);
-        try(FileInputStream fileInputStream = new FileInputStream(pathToPropertyFile.toFile())){
-            Properties properties = new Properties();
-            properties.load(fileInputStream);
-            return properties.getProperty(name);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
 }
