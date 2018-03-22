@@ -1,6 +1,5 @@
 package ru.sbt.jschool.session1;
 
-import java.util.Map;
 import java.util.Properties;
 
 public class Task3 {
