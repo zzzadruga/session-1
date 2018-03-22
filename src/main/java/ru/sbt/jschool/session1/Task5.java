@@ -1,7 +1,6 @@
 package ru.sbt.jschool.session1;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Task5 {
     public static void main(String[] args) {}
@@ -15,15 +14,23 @@ public class Task5 {
     }
 
     public static long[] intersection(long[] arr1, long[] arr2){
-        Set<Long> set1 = Arrays.stream(arr1)
-                .boxed()
-                .collect(Collectors.toSet());
-        Set<Long> set2 = Arrays.stream(arr2)
-                .boxed()
-                .collect(Collectors.toSet());
-        set1.retainAll(set2);
-        return set1.stream()
-                .mapToLong(Long::longValue)
-                .toArray();
+        if (arr1.length > arr2.length){
+            long[] temp = arr1;
+            arr1 = arr2;
+            arr2 = temp;
+        }
+        HashSet<Long> set = new HashSet<>();
+        Arrays.sort(arr1);
+        for (long key : arr2) {
+            if (Arrays.binarySearch(arr1, key) >= 0){
+                set.add(key);
+            }
+        }
+        long[] result = new long[set.size()];
+        int i = 0;
+        for(long l : set){
+            result[i++] = l;
+        }
+        return result;
     }
 }
